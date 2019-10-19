@@ -1,0 +1,7 @@
+com\newsletter\service\controller\ControllerTest.class
+com\newsletter\service\utils\UtilsTest.class
+com\newsletter\service\controller\ErrorControllerImplTest.class
+com\newsletter\service\services\DataStoreServiceTest.class
+com\newsletter\service\datastore\InMemoryDataStoreTest.class
+com\newsletter\service\NewsletterServiceApplicationTests.class
+com\newsletter\service\validator\ValidatorTest.class
