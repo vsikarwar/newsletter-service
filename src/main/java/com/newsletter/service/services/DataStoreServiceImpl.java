@@ -1,5 +1,6 @@
 package com.newsletter.service.services;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -63,6 +64,30 @@ public class DataStoreServiceImpl implements DataStoreService{
 	@Override
 	public List<Subscription> getSubscriptions() {
 		return dataStore.getSubscriptions();
+	}
+	
+	@Override
+	public List<Subscription> getSubscriptions(Date after, Date before) {
+		if(after.compareTo(before) == 0) {
+			return getSubscriptions();
+		}
+		List<Subscription> result = new ArrayList<>();
+		if(before.before(after)) {
+			for(Subscription subs: dataStore.getSubscriptionAfter(after)) {
+				result.add(subs);
+			}
+			for(Subscription subs: dataStore.getSubscriptionBefore(before)) {
+				result.add(subs);
+			}
+		}else {
+			List<Subscription> afterSubs = dataStore.getSubscriptionAfter(after);
+			for(Subscription subs: afterSubs) {
+				if(subs.getDate().before(before)) {
+					result.add(subs);
+				}
+			}
+		}
+		return result;
 	}
 
 	@Override

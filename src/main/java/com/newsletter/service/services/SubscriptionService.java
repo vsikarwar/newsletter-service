@@ -20,5 +20,7 @@ public interface SubscriptionService {
 	List<Subscription> getSubscriptionAfter(Date date);
 	
 	List<Subscription> getSubscriptions();
+	
+	List<Subscription> getSubscriptions(Date after, Date before);
 
 }

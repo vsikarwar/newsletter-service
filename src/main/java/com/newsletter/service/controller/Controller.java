@@ -113,19 +113,19 @@ public class Controller {
 			for(Subscription sub: service.getSubscriptions()) {
 				responses.add(generateResponse(sub));
 			}
-		}else {
-			if(before != null) {
-				for(Subscription sub: service.getSubscriptionBefore(Utils.getDate(before))) {
-					responses.add(generateResponse(sub));
-				}
+		}else if(before != null && after != null){
+			for(Subscription sub: service.getSubscriptions(Utils.getDate(after), Utils.getDate(before))) {
+				responses.add(generateResponse(sub));
 			}
-			if(after != null) {
-				for(Subscription sub: service.getSubscriptionAfter(Utils.getDate(after))) {
-					responses.add(generateResponse(sub));
-				}
+		} else if(before != null) {
+			for(Subscription sub: service.getSubscriptionBefore(Utils.getDate(before))) {
+				responses.add(generateResponse(sub));
+			}
+		} else if(after != null) {
+			for(Subscription sub: service.getSubscriptionAfter(Utils.getDate(after))) {
+				responses.add(generateResponse(sub));
 			}
 		}
-		
 		if(responses.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).
 					body(responses);

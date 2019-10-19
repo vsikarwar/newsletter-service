@@ -21,5 +21,7 @@ public interface DataStoreService {
 	List<Subscription> getSubscriptionAfter(Date date);
 	
 	List<Subscription> getSubscriptions();
+	
+	List<Subscription> getSubscriptions(Date after, Date before);
 
 }

@@ -48,6 +48,11 @@ public class SubscriptionServiceImpl implements SubscriptionService{
 	public List<Subscription> getSubscriptions() {
 		return storeService.getSubscriptions();
 	}
+	
+	@Override
+	public List<Subscription> getSubscriptions(Date after, Date before) {
+		return storeService.getSubscriptions(after, before);
+	}
 
 	@Override
 	public Subscription isUserSubscribed(Long userId) {

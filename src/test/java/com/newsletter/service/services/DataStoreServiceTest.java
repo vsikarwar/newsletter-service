@@ -137,9 +137,28 @@ public class DataStoreServiceTest {
 	@Test
 	public void testGetAllSubscriptions() throws ParseException, InvalidDateException {
 		List<Subscription> results = service.getSubscriptions();
-		
 		for(Subscription result: results) {
 			assertTrue(store.isSubscribed(result.getUserId()));
+		}
+	}
+	
+	@Test
+	public void testGetBeforeAfterSubscriptions1() throws ParseException, InvalidDateException {
+		Date afterDate = Utils.getDate("13/02/2008");
+		Date beforeDate = Utils.getDate("13/10/2008");
+		List<Subscription> results = service.getSubscriptions(afterDate, beforeDate);
+		for(Subscription result: results) {
+			assertTrue(result.getDate().before(beforeDate) && result.getDate().after(afterDate));
+		}
+	}
+	
+	@Test
+	public void testGetBeforeAfterSubscriptions2() throws ParseException, InvalidDateException {
+		Date afterDate = Utils.getDate("13/10/2008");
+		Date beforeDate = Utils.getDate("13/02/2008");
+		List<Subscription> results = service.getSubscriptions(afterDate, beforeDate);
+		for(Subscription result: results) {
+			assertTrue(result.getDate().before(beforeDate) || result.getDate().after(afterDate));
 		}
 	}
 
