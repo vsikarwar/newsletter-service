@@ -7,19 +7,25 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import com.newsletter.service.entity.Subscription;
 import com.newsletter.service.exception.UserNotFoundException;
+import com.newsletter.service.utils.Utils;
 
 public class InMemoryDataStoreTest {
 	
 	private DataStore store;
 	private List<Subscription> testSubs;
+	
+	private Map<Long, Subscription> map = new HashMap<>();
 
 	@Before
 	public void setUp() throws Exception {
@@ -37,25 +43,23 @@ public class InMemoryDataStoreTest {
 		Long userId = Long.valueOf(1234);
 		
 		for(String date : dates) {
-			Date d =new SimpleDateFormat("dd/MM/yyyy").parse(date); 
-			Subscription sub = new Subscription(userId++, d, true);
+			Subscription sub = new Subscription(userId++, Utils.getDate(date), true);
 			testSubs.add(sub);
 		}
 		
 		store = new InMemoryDataStore();
 		
 		for(Subscription subs : testSubs) {
-			store.subscribe(subs);
+			map.put(subs.getUserId(), subs);
 		}
+		
+		ReflectionTestUtils.setField(store, "store", map);
 		
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		for(Subscription subs : testSubs) {
-			if(store.isSubscribed(subs.getUserId()))
-				store.unsubscribe(subs.getUserId());
-		}
+		
 	}
 
 	@Test
@@ -99,6 +103,15 @@ public class InMemoryDataStoreTest {
 		
 		for(Subscription result: results) {
 			assertTrue(result.getDate().before(testDate));
+		}
+	}
+	
+	@Test
+	public void testAllSubscriptions() throws ParseException {
+		List<Subscription> results = store.getSubscriptions();
+		
+		for(Subscription result: results) {
+			assertTrue(map.containsKey(result.getUserId()));
 		}
 	}
 

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.newsletter.service.entity.Subscription;
@@ -102,6 +103,36 @@ public class Controller {
 					body(responses);
 		}
 		
+	}
+	
+	@GetMapping(path="/api/subcription/user", produces= {MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<List<SubscriptionResponse>> dateSubscription(@RequestParam(required=false) String before, 
+									@RequestParam(required=false) String after) throws InvalidDateException{
+		List<SubscriptionResponse> responses = new ArrayList<>();
+		if(before == null && after == null) {
+			for(Subscription sub: service.getSubscriptions()) {
+				responses.add(generateResponse(sub));
+			}
+		}else {
+			if(before != null) {
+				for(Subscription sub: service.getSubscriptionBefore(Utils.getDate(before))) {
+					responses.add(generateResponse(sub));
+				}
+			}
+			if(after != null) {
+				for(Subscription sub: service.getSubscriptionAfter(Utils.getDate(after))) {
+					responses.add(generateResponse(sub));
+				}
+			}
+		}
+		
+		if(responses.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).
+					body(responses);
+		}else {
+			return ResponseEntity.status(HttpStatus.OK).
+					body(responses);
+		}
 	}
 	
 	@GetMapping(path="/api/subscription/user/before/{year}/{month}/{day}",

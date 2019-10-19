@@ -1,7 +1,7 @@
-C:\Users\sikarwar\Documents\workspace-spring-tool-suite-4-4.4.0.RELEASE\newsletter-service\src\test\java\com\newsletter\service\utils\UtilsTest.java
-C:\Users\sikarwar\Documents\workspace-spring-tool-suite-4-4.4.0.RELEASE\newsletter-service\src\test\java\com\newsletter\service\controller\ControllerTest.java
-C:\Users\sikarwar\Documents\workspace-spring-tool-suite-4-4.4.0.RELEASE\newsletter-service\src\test\java\com\newsletter\service\validator\ValidatorTest.java
-C:\Users\sikarwar\Documents\workspace-spring-tool-suite-4-4.4.0.RELEASE\newsletter-service\src\test\java\com\newsletter\service\datastore\InMemoryDataStoreTest.java
-C:\Users\sikarwar\Documents\workspace-spring-tool-suite-4-4.4.0.RELEASE\newsletter-service\src\test\java\com\newsletter\service\controller\ErrorControllerImplTest.java
-C:\Users\sikarwar\Documents\workspace-spring-tool-suite-4-4.4.0.RELEASE\newsletter-service\src\test\java\com\newsletter\service\services\DataStoreServiceTest.java
-C:\Users\sikarwar\Documents\workspace-spring-tool-suite-4-4.4.0.RELEASE\newsletter-service\src\test\java\com\newsletter\service\NewsletterServiceApplicationTests.java
+C:\Users\sikarwar\Documents\GitHub\newsletter-service\src\test\java\com\newsletter\service\validator\ValidatorTest.java
+C:\Users\sikarwar\Documents\GitHub\newsletter-service\src\test\java\com\newsletter\service\controller\ErrorControllerImplTest.java
+C:\Users\sikarwar\Documents\GitHub\newsletter-service\src\test\java\com\newsletter\service\datastore\InMemoryDataStoreTest.java
+C:\Users\sikarwar\Documents\GitHub\newsletter-service\src\test\java\com\newsletter\service\utils\UtilsTest.java
+C:\Users\sikarwar\Documents\GitHub\newsletter-service\src\test\java\com\newsletter\service\controller\ControllerTest.java
+C:\Users\sikarwar\Documents\GitHub\newsletter-service\src\test\java\com\newsletter\service\services\DataStoreServiceTest.java
+C:\Users\sikarwar\Documents\GitHub\newsletter-service\src\test\java\com\newsletter\service\NewsletterServiceApplicationTests.java

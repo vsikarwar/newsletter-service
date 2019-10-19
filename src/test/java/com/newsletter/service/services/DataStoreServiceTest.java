@@ -22,7 +22,9 @@ import org.springframework.test.util.ReflectionTestUtils;
 import com.newsletter.service.datastore.DataStore;
 import com.newsletter.service.datastore.InMemoryDataStore;
 import com.newsletter.service.entity.Subscription;
+import com.newsletter.service.exception.InvalidDateException;
 import com.newsletter.service.exception.UserNotFoundException;
+import com.newsletter.service.utils.Utils;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -113,8 +115,8 @@ public class DataStoreServiceTest {
 	}
 
 	@Test
-	public void testGetSubscriptionBefore() throws ParseException {
-		Date testDate = new SimpleDateFormat("dd/MM/yyyy").parse("13/02/2008");
+	public void testGetSubscriptionBefore() throws ParseException, InvalidDateException {
+		Date testDate = Utils.getDate("13/02/2008");
 		List<Subscription> results = service.getSubscriptionBefore(testDate);
 		
 		for(Subscription result: results) {
@@ -123,12 +125,21 @@ public class DataStoreServiceTest {
 	}
 
 	@Test
-	public void testGetSubscriptionAfter() throws ParseException {
-		Date testDate = new SimpleDateFormat("dd/MM/yyyy").parse("13/02/2008");
+	public void testGetSubscriptionAfter() throws ParseException, InvalidDateException {
+		Date testDate = Utils.getDate("13/02/2008");
 		List<Subscription> results = service.getSubscriptionAfter(testDate);
 		
 		for(Subscription result: results) {
 			assertTrue(result.getDate().after(testDate));
+		}
+	}
+	
+	@Test
+	public void testGetAllSubscriptions() throws ParseException, InvalidDateException {
+		List<Subscription> results = service.getSubscriptions();
+		
+		for(Subscription result: results) {
+			assertTrue(store.isSubscribed(result.getUserId()));
 		}
 	}
 

@@ -267,5 +267,52 @@ public class ControllerTest {
 		assertEquals(response.getBody(), expectedResponse);
 		
 	}
+	
+	@Test
+	public void testAllBeforeAfterSubscription() {
+		String expectedResponse = "[{\"userId\":\"1111\",\"subscribed\":true,\"date\":\"10/09/2007\"},{\"userId\":\"1112\",\"subscribed\":true,\"date\":\"13/10/2008\"},{\"userId\":\"1113\",\"subscribed\":true,\"date\":\"13/06/2008\"},{\"userId\":\"1114\",\"subscribed\":true,\"date\":\"13/02/2008\"},{\"userId\":\"1115\",\"subscribed\":true,\"date\":\"15/02/2008\"},{\"userId\":\"1116\",\"subscribed\":true,\"date\":\"18/02/2008\"},{\"userId\":\"1234\",\"subscribed\":true,\"date\":\"18/10/2019\"},{\"userId\":\"1117\",\"subscribed\":true,\"date\":\"13/02/2010\"}]";
+		String url = "http://localhost:" + port + "/api/subcription/user?after=10/10/2009&before=10/10/2009";
+		ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+		assertEquals(response.getBody(),expectedResponse);
+	}
+	
+	@Test
+	public void testBeforeAndAfterSubscription() {
+		String expectedResponse = "[{\"userId\":\"1111\",\"subscribed\":true,\"date\":\"10/09/2007\"},{\"userId\":\"1234\",\"subscribed\":true,\"date\":\"18/10/2019\"},{\"userId\":\"9876\",\"subscribed\":true,\"date\":\"19/10/2019\"},{\"userId\":\"1117\",\"subscribed\":true,\"date\":\"13/02/2010\"}]";
+		String url = "http://localhost:" + port + "/api/subcription/user?after=10/10/2009&before=10/01/2008";
+		ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+		assertEquals(response.getBody(),expectedResponse);
+	}
+	
+	@Test
+	public void testBeforeOnlySubscription() {
+		String expectedResponse = "[{\"userId\":\"1111\",\"subscribed\":true,\"date\":\"10/09/2007\"}]";
+		String url = "http://localhost:" + port + "/api/subcription/user?before=10/01/2008";
+		ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+		assertEquals(response.getBody(),expectedResponse);
+	}
+	
+	@Test
+	public void testAfterOnlySubscription() {
+		String expectedResponse = "[{\"userId\":\"1234\",\"subscribed\":true,\"date\":\"18/10/2019\"},{\"userId\":\"1117\",\"subscribed\":true,\"date\":\"13/02/2010\"}]";
+		String url = "http://localhost:" + port + "/api/subcription/user?after=10/10/2009";
+		ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+		assertEquals(response.getBody(),expectedResponse);
+	}
+	
+	@Test
+	public void testAllSubscription() {
+		String expectedResponse = "[{\"userId\":\"1234\",\"subscribed\":true,\"date\":\"18/10/2019\"},"
+				+ "{\"userId\":\"1111\",\"subscribed\":true,\"date\":\"10/09/2007\"},"
+				+ "{\"userId\":\"1112\",\"subscribed\":true,\"date\":\"13/10/2008\"},"
+				+ "{\"userId\":\"1113\",\"subscribed\":true,\"date\":\"13/06/2008\"},"
+				+ "{\"userId\":\"1114\",\"subscribed\":true,\"date\":\"13/02/2008\"},"
+				+ "{\"userId\":\"1115\",\"subscribed\":true,\"date\":\"15/02/2008\"},"
+				+ "{\"userId\":\"1116\",\"subscribed\":true,\"date\":\"18/02/2008\"},"
+				+ "{\"userId\":\"1117\",\"subscribed\":true,\"date\":\"13/02/2010\"}]";
+		String url = "http://localhost:" + port + "/api/subcription/user";
+		ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+		assertEquals(response.getBody(),expectedResponse);
+	}
 
 }

@@ -59,6 +59,11 @@ public class DataStoreServiceImpl implements DataStoreService{
 	public List<Subscription> getSubscriptionAfter(Date date) {
 		return dataStore.getSubscriptionAfter(date);
 	}
+	
+	@Override
+	public List<Subscription> getSubscriptions() {
+		return dataStore.getSubscriptions();
+	}
 
 	@Override
 	public Subscription getSubscription(Long userId) throws UserNotFoundException {

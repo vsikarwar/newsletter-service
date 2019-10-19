@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Component;
-
 import com.newsletter.service.entity.Subscription;
 import com.newsletter.service.exception.UserNotFoundException;
 
@@ -56,6 +54,15 @@ public class InMemoryDataStore implements DataStore{
 			}
 		}
 		return afterSubs;
+	}
+	
+	@Override
+	public List<Subscription> getSubscriptions(){
+		List<Subscription> subs = new ArrayList<>();
+		for(Long key: store.keySet()) {
+			subs.add(store.get(key));
+		}
+		return subs;
 	}
 
 	@Override

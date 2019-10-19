@@ -19,5 +19,7 @@ public interface DataStoreService {
 	List<Subscription> getSubscriptionBefore(Date date);
 	
 	List<Subscription> getSubscriptionAfter(Date date);
+	
+	List<Subscription> getSubscriptions();
 
 }
